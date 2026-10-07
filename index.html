@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IT Projects | Jami BD</title>
+  <meta name="description" content="A selection of software, web and cloud platforms designed and delivered by Jami BD.">
+  <meta name="theme-color" content="#0b1f3a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+          colors: {
+            navy: { 50: '#f1f5fb', 100: '#dde7f5', 200: '#b9cdeb', 300: '#8aaad9', 400: '#5a82c4', 500: '#3a63a8', 600: '#2c4d89', 700: '#233e6f', 800: '#1a2f56', 900: '#0b1f3a' }
+          },
+          boxShadow: {
+            card: '0 1px 2px rgba(11,31,58,.04), 0 8px 24px -12px rgba(11,31,58,.12)',
+            lift: '0 2px 4px rgba(11,31,58,.05), 0 20px 40px -16px rgba(11,31,58,.22)'
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { background: #f6f8fc; }
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    .grid-bg {
+      background-image:
+        linear-gradient(to right, rgba(11,31,58,.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(11,31,58,.05) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(ellipse at top, #000 20%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse at top, #000 20%, transparent 75%);
+    }
+    .modal-panel { animation: pop .28s cubic-bezier(.2,.8,.2,1); }
+    @keyframes pop { from { opacity: 0; transform: translateY(16px) scale(.98); } to { opacity: 1; transform: none; } }
+    .fade-bg { animation: fade .25s ease; }
+    @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+    .skeleton { background: linear-gradient(90deg, #eef2f8 25%, #f8fafd 50%, #eef2f8 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; }
+    @keyframes shimmer { to { background-position: -200% 0; } }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal, .modal-panel, .fade-bg, .skeleton { animation: none; transition: none; opacity: 1; transform: none; }
+    }
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-thumb { background: #c5d1e4; border-radius: 8px; }
+  </style>
+</head>
+<body class="font-sans text-slate-700 antialiased min-h-screen flex flex-col">
+
+  <section class="relative overflow-hidden">
+    <div class="grid-bg absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="relative max-w-7xl mx-auto px-5 sm:px-8 pt-16 sm:pt-24 pb-10">
+      <p class="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.18em] uppercase text-navy-600">
+        <span class="h-px w-8 bg-navy-400"></span> Jami BD
+      </p>
+      <h1 class="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-navy-900">
+        Information Technology<br class="hidden sm:block"> Project Portfolio
+      </h1>
+      <p class="mt-5 max-w-2xl text-base sm:text-lg text-slate-600 leading-relaxed">
+        Secure, scalable and user-centred software platforms across e-procurement, civic technology,
+        marketplaces and web applications, built and delivered to production standards.
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="https://jamibd.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-xl bg-navy-900 px-5 py-3 text-sm font-semibold text-white shadow-card hover:bg-navy-700 transition">
+          Visit jamibd.com <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+        <a href="https://ezbid.cloud" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-navy-900 ring-1 ring-navy-200 hover:ring-navy-400 transition">
+          Visit ezbid.cloud <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+      </div>
+
+      <dl class="mt-10 grid grid-cols-3 max-w-xl gap-4 sm:gap-8">
+        <div>
+          <dt class="text-xs uppercase tracking-wider text-slate-500">Projects</dt>
+          <dd id="statProjects" class="mt-1 text-3xl font-bold text-navy-900">0</dd>
+        </div>
+        <div>
+          <dt class="text-xs uppercase tracking-wider text-slate-500">Technologies</dt>
+          <dd id="statTech" class="mt-1 text-3xl font-bold text-navy-900">0</dd>
+        </div>
+        <div>
+          <dt class="text-xs uppercase tracking-wider text-slate-500">Live Systems</dt>
+          <dd id="statLive" class="mt-1 text-3xl font-bold text-navy-900">0</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto px-5 sm:px-8 pb-20">
+    <div class="max-w-2xl pb-6">
+      <p class="text-xs font-semibold tracking-[0.18em] uppercase text-navy-500">Live Systems</p>
+      <h2 class="mt-2 text-2xl sm:text-3xl font-bold text-navy-900">Live Projects</h2>
+      <p class="mt-2 text-slate-600">Publicly accessible platforms, shown as they run in production.</p>
+    </div>
+
+    <div class="sticky top-0 z-30 -mx-5 sm:-mx-8 px-5 sm:px-8 py-4 bg-[#f6f8fc]/90 backdrop-blur border-b border-navy-100/70">
+      <div class="flex flex-col lg:flex-row lg:items-center gap-4 justify-between">
+        <div id="filters" class="flex flex-wrap gap-2" role="tablist" aria-label="Project categories"></div>
+        <div class="relative w-full lg:w-80">
+          <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input id="search" type="search" placeholder="Search projects or technologies"
+                 class="w-full rounded-xl border border-navy-100 bg-white pl-10 pr-4 py-2.5 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-navy-300 focus:border-navy-300 transition"
+                 aria-label="Search projects">
+        </div>
+      </div>
+    </div>
+
+    <div id="grid" class="mt-8 grid gap-6 sm:grid-cols-2 xl:grid-cols-3"></div>
+
+    <div id="empty" class="hidden mt-16 text-center">
+      <p class="text-lg font-semibold text-navy-900">No matching projects</p>
+      <p class="mt-1 text-sm text-slate-500">Try a different keyword or category.</p>
+    </div>
+
+    <section id="confidential" class="mt-24">
+      <div class="max-w-2xl">
+        <p class="text-xs font-semibold tracking-[0.18em] uppercase text-navy-500">Under NDA</p>
+        <h2 class="mt-2 text-2xl sm:text-3xl font-bold text-navy-900">Confidential Projects</h2>
+        <p class="mt-2 text-slate-600 leading-relaxed">
+          Delivered for clients under confidentiality agreements. Public access and details are not shown
+          without client permission; further information can be shared on request, subject to that approval.
+        </p>
+      </div>
+      <div id="privateGrid" class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"></div>
+    </section>
+
+    <section id="solutions" class="mt-24">
+      <div class="max-w-2xl">
+        <p class="text-xs font-semibold tracking-[0.18em] uppercase text-navy-500">Capabilities</p>
+        <h2 class="mt-2 text-2xl sm:text-3xl font-bold text-navy-900">Solutions We Deliver</h2>
+        <p class="mt-2 text-slate-600 leading-relaxed">
+          Enterprise software we are equipped to design and deliver. These are service offerings,
+          not live projects, with typical delivery timelines based on scope.
+        </p>
+      </div>
+      <div id="solutionGrid" class="mt-8 grid gap-6 sm:grid-cols-2 xl:grid-cols-3"></div>
+    </section>
+  </main>
+
+  <footer class="border-t border-navy-100 bg-white">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-12">
+      <div class="max-w-2xl">
+        <p class="text-xs font-semibold tracking-[0.18em] uppercase text-navy-500">Contact</p>
+        <h2 class="mt-2 text-2xl font-bold text-navy-900">Get in touch with Jami BD</h2>
+      </div>
+      <div class="mt-8 grid gap-4 md:grid-cols-3">
+        <a href="tel:+8801924400774" class="flex items-start gap-4 rounded-2xl bg-navy-50/60 p-5 ring-1 ring-navy-100 hover:ring-navy-300 transition">
+          <span class="grid place-items-center h-10 w-10 shrink-0 rounded-xl bg-white text-navy-700 ring-1 ring-navy-100">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+          </span>
+          <span>
+            <span class="block text-xs uppercase tracking-wider text-slate-500">Phone</span>
+            <span class="mt-1 block font-semibold text-navy-900">+880 1924 400774</span>
+          </span>
+        </a>
+        <a href="mailto:info@jamibd.com" class="flex items-start gap-4 rounded-2xl bg-navy-50/60 p-5 ring-1 ring-navy-100 hover:ring-navy-300 transition">
+          <span class="grid place-items-center h-10 w-10 shrink-0 rounded-xl bg-white text-navy-700 ring-1 ring-navy-100">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          </span>
+          <span>
+            <span class="block text-xs uppercase tracking-wider text-slate-500">Email</span>
+            <span class="mt-1 block font-semibold text-navy-900">info@jamibd.com</span>
+          </span>
+        </a>
+        <div class="flex items-start gap-4 rounded-2xl bg-navy-50/60 p-5 ring-1 ring-navy-100">
+          <span class="grid place-items-center h-10 w-10 shrink-0 rounded-xl bg-white text-navy-700 ring-1 ring-navy-100">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+          <span>
+            <span class="block text-xs uppercase tracking-wider text-slate-500">Office</span>
+            <span class="mt-1 block font-semibold text-navy-900 leading-snug">House# 91/2, North Vashantek, Vashantek, Dhaka, Bangladesh</span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-navy-100">
+      <div class="max-w-7xl mx-auto px-5 sm:px-8 py-5 text-sm text-slate-500 flex flex-col sm:flex-row gap-2 justify-between">
+        <span>&copy; <span id="year"></span> Jami BD. All rights reserved.</span>
+        <span>Project showcase</span>
+      </div>
+    </div>
+  </footer>
+
+  <div id="modal" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <div id="backdrop" class="fade-bg absolute inset-0 bg-navy-900/60 backdrop-blur-sm"></div>
+    <div class="relative h-full overflow-y-auto">
+      <div id="mOuter" class="min-h-full flex items-start sm:items-center justify-center p-3 sm:p-6">
+        <div class="modal-panel relative w-full max-w-5xl bg-white rounded-2xl shadow-lift overflow-hidden">
+          <button id="mClose" class="absolute top-3 right-3 z-10 h-9 w-9 grid place-items-center rounded-full bg-white/90 text-slate-600 hover:text-navy-900 hover:bg-white shadow ring-1 ring-navy-100 transition" aria-label="Close">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+          </button>
+
+          <div id="mHero" class="px-6 sm:px-10 pt-10 pb-8 text-white"></div>
+
+          <div class="px-6 sm:px-10 pt-8">
+            <h3 class="text-xs font-semibold uppercase tracking-widest text-navy-500">Live Preview</h3>
+            <div class="mt-3 rounded-xl overflow-hidden ring-1 ring-navy-100 bg-white shadow-card">
+              <div class="flex items-center gap-1.5 px-3 py-2 bg-navy-50 border-b border-navy-100">
+                <span class="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
+                <span id="mUrl" class="ml-3 flex-1 truncate text-[11px] text-slate-500"></span>
+              </div>
+              <div id="mFrameWrap" class="relative h-[300px] sm:h-[460px] bg-slate-50 overflow-hidden"></div>
+            </div>
+          </div>
+
+          <div class="p-6 sm:p-10 grid md:grid-cols-2 gap-8">
+            <section>
+              <h3 class="text-xs font-semibold uppercase tracking-widest text-navy-500">Overview</h3>
+              <p id="mDesc" class="mt-2 leading-relaxed text-slate-700"></p>
+            </section>
+            <section>
+              <h3 class="text-xs font-semibold uppercase tracking-widest text-navy-500">Key Challenge</h3>
+              <p id="mChallenge" class="mt-2 leading-relaxed text-slate-700"></p>
+            </section>
+            <section>
+              <h3 class="text-xs font-semibold uppercase tracking-widest text-navy-500">Roadmap</h3>
+              <p id="mFuture" class="mt-2 leading-relaxed text-slate-700"></p>
+            </section>
+            <section>
+              <h3 class="text-xs font-semibold uppercase tracking-widest text-navy-500">Technology Stack</h3>
+              <div id="mTags" class="mt-3 flex flex-wrap gap-2"></div>
+            </section>
+            <div id="mActions" class="md:col-span-2 flex flex-wrap gap-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const PROJECTS = [
+      {
+        title: "Ezbid Cloud – Intelligent E-Procurement",
+        category: "Enterprise & GovTech",
+        desc: "Developed a secure, cloud-native solution for streamlining tender management and real-time bidding. Key features include automated RFQ generation, vendor performance tracking, and live auction capabilities.",
+        tags: ["Next.js", "FastAPI", "Fastify", "Python", "PostgreSQL", "Docker"],
+        link: "https://ezbid.cloud/",
+        github: "",
+        image: "",
+        challenges: "Unifying scattered, inconsistently formatted government tender data from multiple sources into one reliable schema, while keeping API responses fast under real-time bidding load.",
+        future: "Add automated notification alerts for matching tenders, an admin analytics dashboard, and further backend performance tuning with caching and query optimization."
+      },
+      {
+        title: "City Complaint Service Platform – Civic Issue Tracker",
+        category: "Enterprise & GovTech",
+        desc: "A civic-tech platform where citizens report street-level issues such as potholes, broken streetlights and garbage dumping, request municipal services, and pay fees securely with Stripe. Complaints are auto-assigned to ward officers by location and category, with a live status timeline and resolution rating.",
+        tags: ["Next.js", "Stripe", "Role-Based Access", "REST API", "Vercel"],
+        link: "https://city-complaint-service-platform.vercel.app",
+        github: "",
+        image: "",
+        challenges: "Modeling a complete complaint lifecycle (filing, officer assignment, status timeline, resolution feedback) across citizen, agent and admin roles, while keeping Stripe-based service payments consistent with application status.",
+        future: "Add map-based complaint clustering, SMS/email status notifications, and an open-data portal for public transparency reports."
+      },
+      {
+        title: "RentNest – Rental Property Marketplace",
+        category: "Marketplace & E-Commerce",
+        desc: "A rental marketplace connecting tenants and landlords. Tenants browse listings with advanced filters and instant search, landlords list and manage properties, and rent payments are processed securely through Stripe, with separate dashboards for each role and an admin control panel.",
+        tags: ["Next.js", "Stripe", "REST API", "Role-Based Dashboards", "Vercel"],
+        link: "https://rentnest-frontend-orpin.vercel.app",
+        github: "",
+        image: "",
+        challenges: "Designing separate tenant, landlord and admin experiences on one codebase with proper route protection, while keeping property search and filtering fast as the listing count grows.",
+        future: "Add real-time chat between tenants and landlords, saved searches with alerts, and a map view for property discovery."
+      },
+      {
+        title: "Jamibd – Real-Time AI-Powered E-Commerce",
+        category: "Marketplace & E-Commerce",
+        desc: "A scalable corporate platform integrating real-time systems and intelligent recommendation engines. Designed for high concurrency with an enterprise-grade backend, ensuring a seamless shopping experience.",
+        tags: ["Full-Stack", "React.js", "Node.js", "MongoDB", "AI Integration"],
+        link: "https://jamibd.com/",
+        github: "",
+        image: "",
+        challenges: "Designing the backend to handle high concurrency for real-time features while keeping the AI recommendation engine's response time low enough for a smooth shopping experience.",
+        future: "Expand the recommendation engine with user behavior tracking and add a seller-side analytics dashboard."
+      },
+      {
+        title: "ToyTopia – Niche E-Commerce Marketplace",
+        category: "Marketplace & E-Commerce",
+        desc: "A dynamic single-page application (SPA) for buying and selling toys. Integrated Firebase for secure authentication and backend services, featuring product management (CRUD), category-based filtering.",
+        tags: ["React.js", "Firebase", "MongoDB", "Express.js", "Tailwind CSS"],
+        link: "https://toytopia-95580.web.app/",
+        github: "",
+        image: "",
+        challenges: "Structuring Firebase security rules correctly so CRUD operations stayed protected per-user, while keeping category filtering instant on the client side.",
+        future: "Add a payment gateway integration and an order-tracking system for buyers and sellers."
+      },
+      {
+        title: "eTuitionBD – Smart Tuition Media Platform",
+        category: "Web Applications",
+        desc: "Designed a dynamic frontend for a digital tuition platform connecting students with qualified tutors. Features include an interactive dashboard, advanced tutor search filtering, and a seamless user experience.",
+        tags: ["React.js", "Tailwind CSS", "JavaScript", "REST API", "Node.js"],
+        link: "https://etuitionbd-client.pages.dev/",
+        github: "",
+        image: "",
+        challenges: "Building a tutor search/filter system that stayed fast and responsive even as filter combinations grew, while keeping the dashboard UI clean on smaller screens.",
+        future: "Introduce real-time chat between students and tutors, and a review/rating system to build trust on the platform."
+      },
+      {
+        title: "Career Hub – Job Portal & Analytics",
+        category: "Web Applications",
+        desc: "A responsive Single Page Application (SPA) designed for browsing and managing job applications. Features include dynamic routing for job details, statistical charts using Recharts, and local storage integration.",
+        tags: ["React.js", "React Router", "Recharts", "Tailwind CSS", "Surge.sh"],
+        link: "https://assgn-8smsamiul.surge.sh",
+        github: "",
+        image: "",
+        challenges: "Keeping application-tracking state in sync with dynamic chart data using only local storage, without a real backend.",
+        future: "Connect it to a real backend/database and add resume-upload with application status emails."
+      },
+      {
+        title: "Ticket & Selection Management App",
+        category: "Web Applications",
+        desc: "An interactive dashboard for selecting items (like tickets or players) with budget/credit constraints. Implemented complex state management to handle selection limits, calculate remaining balance dynamically.",
+        tags: ["React.js", "JavaScript (ES6)", "Tailwind CSS", "DaisyUI", "Surge.sh"],
+        link: "https://assgn-7smsamiul.surge.sh",
+        github: "",
+        image: "",
+        challenges: "Handling multiple interdependent constraints (budget limits, selection caps) in state without causing UI lag on every update.",
+        future: "Add multi-user support with saved selections and a shareable summary/export feature."
+      },
+      {
+        title: "Green Earth – Tree Plantation Initiative",
+        category: "Landing Pages",
+        desc: "A responsive landing page for an environmental campaign focused on tree plantation. The site features a dynamic product selection system with a shopping cart functionality, donation form, and impact statistics.",
+        tags: ["HTML5", "CSS3", "JavaScript (ES6)", "Responsive Design", "Netlify"],
+        link: "https://incredible-cobbler-f5588d.netlify.app/",
+        github: "",
+        image: "",
+        challenges: "Building cart and donation logic in vanilla JavaScript without a framework, while keeping the layout fully responsive across devices.",
+        future: "Integrate a real payment gateway for donations and add a live counter of trees planted."
+      },
+      {
+        title: "Flower Shop – Responsive Landing Page",
+        category: "Landing Pages",
+        desc: "A visually appealing landing page designed for a florist shop using semantic HTML5 and CSS3. The layout showcases products with a grid system, promotional banners, and a responsive design structure.",
+        tags: ["HTML5", "CSS3", "GitHub Pages"],
+        link: "https://smsamiulhasansaim.github.io/assgn-2",
+        github: "https://github.com/smsamiulhasansaim/assgn-2",
+        image: "",
+        challenges: "Achieving a pixel-perfect, fully responsive grid layout for the product showcase using pure CSS3, with no framework support.",
+        future: "Add a working cart/checkout flow and connect it to a real product database."
+      },
+      {
+        title: "Dark UI Agency Template – Modern Landing Page",
+        category: "Landing Pages",
+        desc: "A sleek, dark-themed landing page designed for digital agencies. It features a bold visual hierarchy, including a statistics dashboard, client testimonials, and a 'Get in Touch' form, all built with modern UI aesthetics.",
+        tags: ["HTML5", "CSS3", "Flexbox", "Responsive Design"],
+        link: "https://smsamiulhasansaim.github.io/Assgn-1",
+        github: "https://github.com/smsamiulhasansaim/Assgn-1",
+        image: "",
+        challenges: "Getting the dark-themed visual hierarchy (contrast, spacing, statistics dashboard) to feel polished and readable using only Flexbox, without a design framework.",
+        future: "Convert the static template into a reusable component library and add smooth scroll-triggered animations."
+      }
+    ];
+
+    const THEMES = {
+      "Enterprise & GovTech":     "from-navy-900 via-navy-800 to-navy-600",
+      "Marketplace & E-Commerce": "from-[#0f3d5e] via-[#14577f] to-[#1d78a8]",
+      "Web Applications":         "from-[#1e2a5a] via-[#2b3a7c] to-[#4054a8]",
+      "Landing Pages":            "from-[#16424a] via-[#1d5a63] to-[#2a7d89]"
+    };
+
+    const ARROW = '<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>';
+    const FRAME_WIDTH = 1280;
+    const ALL = "All Projects";
+    const state = { category: ALL, query: "" };
+    const $ = (id) => document.getElementById(id);
+    const el = { grid: $("grid"), empty: $("empty"), filters: $("filters"), search: $("search"), modal: $("modal") };
+    let lastFocus = null;
+
+    const esc = (v) => String(v).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    const splitTitle = (t) => { const [a, ...b] = t.split(" – "); return { name: a, sub: b.join(" – ") }; };
+    const host = (u) => { try { return new URL(u).host; } catch { return u; } };
+
+    /* Live frames: desktop-width iframe scaled down to fit its container */
+    function sizeFrame(box) {
+      const frame = box.querySelector("iframe");
+      if (!frame || !box.clientWidth) return;
+      const scale = box.clientWidth / FRAME_WIDTH;
+      frame.style.width = `${FRAME_WIDTH}px`;
+      frame.style.height = `${box.clientHeight / scale}px`;
+      frame.style.transform = `scale(${scale})`;
+    }
+
+    const resizeObserver = new ResizeObserver((entries) => entries.forEach((e) => sizeFrame(e.target)));
+
+    function mountFrame(box, url, interactive) {
+      if (box.querySelector("iframe")) return;
+      const frame = document.createElement("iframe");
+      frame.src = url;
+      frame.title = `Live preview of ${host(url)}`;
+      frame.referrerPolicy = "no-referrer";
+      frame.sandbox = "allow-scripts allow-same-origin allow-forms allow-popups";
+      frame.tabIndex = -1;
+      frame.className = "absolute top-0 left-0 origin-top-left border-0 bg-white opacity-0 transition-opacity duration-700"
+        + (interactive ? "" : " pointer-events-none");
+      frame.addEventListener("load", () => {
+        frame.classList.remove("opacity-0");
+        box.querySelector("[data-fallback]")?.classList.add("opacity-0");
+        box.querySelector(".skeleton")?.remove();
+      });
+      box.appendChild(frame);
+      sizeFrame(box);
+      resizeObserver.observe(box);
+    }
+
+    const frameObserver = "IntersectionObserver" in window
+      ? new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            frameObserver.unobserve(entry.target);
+            mountFrame(entry.target, entry.target.dataset.frame, false);
+          });
+        }, { rootMargin: "200px" })
+      : null;
+
+    function renderStats() {
+      $("statProjects").textContent = PROJECTS.length + PRIVATE.length;
+      $("statTech").textContent = new Set(PROJECTS.flatMap((p) => p.tags)).size;
+      $("statLive").textContent = PROJECTS.filter((p) => p.link).length;
+    }
+
+    function renderFilters() {
+      const cats = [ALL, ...new Set(PROJECTS.map((p) => p.category))];
+      el.filters.innerHTML = cats.map((c) => {
+        const count = c === ALL ? PROJECTS.length : PROJECTS.filter((p) => p.category === c).length;
+        const active = c === state.category;
+        return `<button role="tab" aria-selected="${active}" data-cat="${esc(c)}"
+          class="px-4 py-2 rounded-full text-sm font-medium transition ${active
+            ? "bg-navy-900 text-white shadow-card"
+            : "bg-white text-slate-600 ring-1 ring-navy-100 hover:ring-navy-300 hover:text-navy-900"}">
+          ${esc(c)} <span class="ml-1 opacity-60">${count}</span></button>`;
+      }).join("");
+    }
+
+    function filtered() {
+      const q = state.query.trim().toLowerCase();
+      return PROJECTS.filter((p) => {
+        const inCat = state.category === ALL || p.category === state.category;
+        const hay = `${p.title} ${p.desc} ${p.tags.join(" ")}`.toLowerCase();
+        return inCat && (!q || hay.includes(q));
+      });
+    }
+
+    function renderGrid() {
+      const list = filtered();
+      resizeObserver.disconnect();
+      el.empty.classList.toggle("hidden", list.length > 0);
+      el.grid.innerHTML = list.map((p) => {
+        const idx = PROJECTS.indexOf(p);
+        const { name, sub } = splitTitle(p.title);
+        const shown = p.tags.slice(0, 4);
+        const more = p.tags.length - shown.length;
+        const media = p.image
+          ? `<img src="${esc(p.image)}" alt="${esc(name)}" loading="lazy" class="absolute inset-0 h-full w-full object-cover object-top">`
+          : "";
+        return `
+          <article class="reveal group">
+            <button data-idx="${idx}" class="text-left w-full h-full flex flex-col bg-white rounded-2xl overflow-hidden ring-1 ring-navy-100/80 shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-lift focus:outline-none focus-visible:ring-2 focus-visible:ring-navy-400">
+              <div ${p.image ? "" : `data-frame="${esc(p.link)}"`} class="relative h-52 bg-gradient-to-br ${THEMES[p.category]} overflow-hidden">
+                <div data-fallback class="absolute inset-0 skeleton opacity-20 transition-opacity duration-500"></div>
+                ${media}
+                <div class="absolute inset-0 pointer-events-none bg-gradient-to-t from-navy-900/70 via-transparent to-transparent"></div>
+                <span class="absolute top-4 right-4 text-[11px] font-semibold tracking-wide uppercase text-white bg-navy-900/75 ring-1 ring-white/25 rounded-full px-3 py-1 backdrop-blur">${esc(p.category)}</span>
+                <span class="absolute left-5 right-5 bottom-3 text-xs text-white/90 truncate">${esc(host(p.link))}</span>
+              </div>
+              <div class="flex-1 flex flex-col p-5">
+                <h2 class="text-lg font-bold text-navy-900 leading-snug">${esc(name)}</h2>
+                ${sub ? `<p class="text-sm font-medium text-navy-500 mt-0.5">${esc(sub)}</p>` : ""}
+                <p class="mt-3 text-sm text-slate-600 leading-relaxed line-clamp-3">${esc(p.desc)}</p>
+                <div class="mt-4 flex flex-wrap gap-1.5">
+                  ${shown.map((t) => `<span class="text-xs px-2.5 py-1 rounded-md bg-navy-50 text-navy-700 ring-1 ring-navy-100">${esc(t)}</span>`).join("")}
+                  ${more > 0 ? `<span class="text-xs px-2.5 py-1 rounded-md text-slate-500">+${more}</span>` : ""}
+                </div>
+                <div class="mt-auto pt-5 flex items-center justify-between text-sm font-semibold text-navy-700">
+                  <span>View details</span>
+                  <span class="transition group-hover:translate-x-1">${ARROW}</span>
+                </div>
+              </div>
+            </button>
+          </article>`;
+      }).join("");
+
+      el.grid.querySelectorAll("[data-frame]").forEach((box) => {
+        if (frameObserver) frameObserver.observe(box);
+        else mountFrame(box, box.dataset.frame, false);
+      });
+      observeReveal();
+    }
+
+    let revealObserver;
+    function observeReveal() {
+      if (!("IntersectionObserver" in window)) {
+        document.querySelectorAll(".reveal").forEach((n) => n.classList.add("in"));
+        return;
+      }
+      revealObserver?.disconnect();
+      revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add("in"); revealObserver.unobserve(e.target); }
+        });
+      }, { threshold: 0.08 });
+      document.querySelectorAll(".reveal:not(.in)").forEach((n, i) => {
+        n.style.transitionDelay = `${Math.min(i % 6, 5) * 60}ms`;
+        revealObserver.observe(n);
+      });
+    }
+
+    function openModal(idx) {
+      const p = PROJECTS[idx];
+      const { name, sub } = splitTitle(p.title);
+      lastFocus = document.activeElement;
+
+      $("mHero").className = `px-6 sm:px-10 pt-10 pb-8 text-white bg-gradient-to-br ${THEMES[p.category]}`;
+      $("mHero").innerHTML = `
+        <span class="inline-flex items-center text-[11px] font-semibold tracking-wide uppercase bg-white/15 ring-1 ring-white/25 rounded-full px-3 py-1">${esc(p.category)}</span>
+        <h2 id="mTitle" class="mt-4 text-2xl sm:text-3xl font-extrabold tracking-tight pr-10">${esc(name)}</h2>
+        ${sub ? `<p class="mt-1 text-white/80">${esc(sub)}</p>` : ""}`;
+
+      $("mDesc").textContent = p.desc;
+      $("mChallenge").textContent = p.challenges;
+      $("mFuture").textContent = p.future;
+      $("mTags").innerHTML = p.tags.map((t) => `<span class="text-sm px-3 py-1.5 rounded-lg bg-navy-50 text-navy-800 ring-1 ring-navy-100 font-medium">${esc(t)}</span>`).join("");
+      $("mUrl").textContent = p.link;
+
+      const actions = [];
+      if (p.link) actions.push(`<a href="${esc(p.link)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-xl bg-navy-900 px-5 py-3 text-sm font-semibold text-white shadow-card hover:bg-navy-700 transition">Open Live Site ${ARROW}</a>`);
+      if (p.github) actions.push(`<a href="${esc(p.github)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-navy-900 ring-1 ring-navy-200 hover:ring-navy-400 transition">Source Code ${ARROW}</a>`);
+      $("mActions").innerHTML = actions.join("");
+
+      el.modal.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+      $("mClose").focus();
+
+      const wrap = $("mFrameWrap");
+      wrap.innerHTML = '<div class="absolute inset-0 skeleton"></div>';
+      mountFrame(wrap, p.link, true);
+    }
+
+    function closeModal() {
+      el.modal.classList.add("hidden");
+      const wrap = $("mFrameWrap");
+      resizeObserver.unobserve(wrap);
+      wrap.innerHTML = "";
+      document.body.style.overflow = "";
+      lastFocus?.focus?.();
+    }
+
+    el.filters.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-cat]");
+      if (!btn) return;
+      state.category = btn.dataset.cat;
+      renderFilters();
+      renderGrid();
+    });
+
+    let timer;
+    el.search.addEventListener("input", (e) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { state.query = e.target.value; renderGrid(); }, 150);
+    });
+
+    el.grid.addEventListener("click", (e) => {
+      const card = e.target.closest("[data-idx]");
+      if (card) openModal(Number(card.dataset.idx));
+    });
+
+    $("mClose").addEventListener("click", closeModal);
+    $("backdrop").addEventListener("click", closeModal);
+    $("mOuter").addEventListener("click", (e) => { if (e.target === e.currentTarget) closeModal(); });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !el.modal.classList.contains("hidden")) closeModal();
+    });
+
+    /* Edit "type" per project so it describes the real work. Leave empty to hide. */
+    const PRIVATE = [
+      { type: "Web Platform" },
+      { type: "Web Platform" },
+      { type: "Web Application" },
+      { type: "Web Application" },
+      { type: "Backend & API" },
+      { type: "Backend & API" },
+      { type: "Software Project" }
+    ];
+
+    const SOLUTIONS = [
+      {
+        name: "Point of Sale (POS) System",
+        desc: "Fast, multi-branch retail and restaurant billing with real-time stock sync and detailed sales reporting.",
+        stack: ["Next.js", "Node.js", "PostgreSQL", "Redis"],
+        modules: ["Billing & Barcode", "Multi-Branch", "Stock Sync", "Sales Reports"],
+        timeline: "4 – 6 months"
+      },
+      {
+        name: "Enterprise Resource Planning (ERP)",
+        desc: "Integrated finance, procurement, inventory and project modules on a single secure, role-based platform.",
+        stack: ["Next.js", "Fastify", "PostgreSQL", "Prisma", "Docker"],
+        modules: ["Accounts & Finance", "Procurement", "Inventory", "Role-Based Access"],
+        timeline: "9 – 12 months"
+      },
+      {
+        name: "HRM & Payroll Management",
+        desc: "Employee records, attendance, leave and automated payroll with approval workflows and audit trails.",
+        stack: ["Next.js", "FastAPI", "PostgreSQL", "Docker"],
+        modules: ["Attendance", "Leave Workflow", "Payroll", "Audit Logs"],
+        timeline: "5 – 7 months"
+      },
+      {
+        name: "Inventory & Warehouse Management",
+        desc: "Real-time stock tracking across warehouses with purchase, transfer and low-stock automation.",
+        stack: ["React.js", "Node.js", "PostgreSQL", "Redis"],
+        modules: ["Stock Tracking", "Purchase Orders", "Transfers", "Alerts"],
+        timeline: "4 – 6 months"
+      },
+      {
+        name: "Document Management & e-Filing",
+        desc: "Digital file movement, approvals and secure archiving for government and corporate offices.",
+        stack: ["Next.js", "FastAPI", "PostgreSQL", "Object Storage"],
+        modules: ["Digital Approvals", "Version Control", "Secure Archive", "Search"],
+        timeline: "6 – 8 months"
+      },
+      {
+        name: "Citizen Service Mobile App",
+        desc: "Cross-platform mobile application for public service requests, notifications and secure payments.",
+        stack: ["Flutter", "Dart", "REST API", "Firebase"],
+        modules: ["Service Requests", "Push Notifications", "Online Payment", "Tracking"],
+        timeline: "4 – 6 months"
+      }
+    ];
+
+    function renderPrivate() {
+      const lock = '<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+      $("privateGrid").innerHTML = PRIVATE.map((p, i) => `
+        <article class="rounded-2xl bg-white p-5 ring-1 ring-navy-100/80 shadow-card">
+          <div class="flex items-center justify-between">
+            <span class="grid place-items-center h-10 w-10 rounded-xl bg-navy-50 text-navy-700 ring-1 ring-navy-100">${lock}</span>
+            <span class="text-[11px] font-semibold uppercase tracking-wide text-navy-700 bg-navy-50 ring-1 ring-navy-100 rounded-full px-2.5 py-1">Delivered</span>
+          </div>
+          <h3 class="mt-4 font-bold text-navy-900">Confidential Project ${String(i + 1).padStart(2, "0")}</h3>
+          ${p.type ? `<p class="text-sm text-navy-500 font-medium">${esc(p.type)}</p>` : ""}
+          <div class="mt-4 space-y-2" aria-hidden="true">
+            <div class="h-2 rounded bg-slate-100 w-full"></div>
+            <div class="h-2 rounded bg-slate-100 w-4/5"></div>
+            <div class="h-2 rounded bg-slate-100 w-3/5"></div>
+          </div>
+          <p class="mt-4 text-xs text-slate-500">Client permission required to disclose details.</p>
+        </article>`).join("");
+    }
+
+    function renderSolutions() {
+      $("solutionGrid").innerHTML = SOLUTIONS.map((s) => `
+        <article class="flex flex-col rounded-2xl bg-white p-6 ring-1 ring-navy-100/80 shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-lift">
+          <div class="flex items-center justify-between gap-3">
+            <span class="text-[11px] font-semibold uppercase tracking-wide text-amber-800 bg-amber-50 ring-1 ring-amber-200 rounded-full px-2.5 py-1">Available for Delivery</span>
+            <span class="text-xs text-slate-500">Typical: ${esc(s.timeline)}</span>
+          </div>
+          <h3 class="mt-4 text-lg font-bold text-navy-900 leading-snug">${esc(s.name)}</h3>
+          <p class="mt-2 text-sm text-slate-600 leading-relaxed">${esc(s.desc)}</p>
+          <ul class="mt-4 grid grid-cols-2 gap-x-3 gap-y-1.5 text-sm text-slate-700">
+            ${s.modules.map((m) => `<li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-navy-400"></span>${esc(m)}</li>`).join("")}
+          </ul>
+          <div class="mt-auto pt-5 flex flex-wrap gap-1.5">
+            ${s.stack.map((t) => `<span class="text-xs px-2.5 py-1 rounded-md bg-navy-50 text-navy-700 ring-1 ring-navy-100">${esc(t)}</span>`).join("")}
+          </div>
+        </article>`).join("");
+    }
+
+    $("year").textContent = new Date().getFullYear();
+    renderPrivate();
+    renderSolutions();
+    renderStats();
+    renderFilters();
+    renderGrid();
+  </script>
+</body>
+</html>
